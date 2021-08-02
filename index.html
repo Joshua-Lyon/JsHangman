@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josh's Amazing Hangman</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+
+    <div id=chooseGameModeContainer>
+        <span>How would you live to play</span>
+        <button onclick="setGameMode(0)">Choose a word for a friend</button>
+        <button onclick="setGameMode(1)">Guess a random country</button>
+    </div>
+
+    <div id="setWordContainer" style="display: none;">
+        <span>Choose a word for your friend to guess!</span>
+        <input id="setWord" type="text" />
+    </div>
+    <div id="wordContainer">
+
+    </div>
+
+
+
+<script>
+    var word = "";
+    var lives = 10;
+    var words = [];
+    var gameMode = 0
+
+    function setGameMode(choice){
+        gameMode = choice;
+        switch (gameMode){
+            case 0:
+                id("setWordContainer").style.display = "block"
+                break;
+            case 1:
+                getCountries();
+    }
+
+    function getCountries(){
+        fetch("countries.txt").then(data => console.log(data));
+    }
+
+    function setWord(){
+        
+
+        }
+    }
+
+
+    function guess(hiddenWord, letter){
+        if (letter.length > 1)
+            return hiddenWord;
+        
+
+    }
+
+    function main(){
+
+
+
+    }
+
+    function id(id){
+        return document.getElementById(id);
+    }
+</script>
+
+
+
+</body>
+</html>
+
