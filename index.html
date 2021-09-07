@@ -9,6 +9,10 @@
 </head>
 <body>
 
+    <div id="lives" style="width: 100%; display: flex; justify-content: end; margin-right: 5em;" hidden="true">
+        Lives: <span id="livesCount"></span>
+    </div>
+
     <div id=chooseGameModeContainer>
         <span>How would you live to play</span>
         <button onclick="setGameMode(0)">Choose a word for a friend</button>
@@ -17,17 +21,30 @@
 
     <div id="setWordContainer" hidden>
         <span>Choose a word for your friend to guess!</span>
-        <input id="setWord" type="text" />
+        <input id="setWord" type="text" value="" />
         <button onclick="setOwnWord()">Set Word</button>
     </div>
+
+    <div id="guessedLettersContainer">
+        Incorrect Guesses: <div id="guessedLetters"></div>
+    </div>
+
     <div id="wordContainer">
 
     </div>
     <div id="guessContainer" hidden>
-        <input id="guessInput" type=text/>
+        <input style="margin-top: 0.5em;" id="guessInput" type=text value=""/>
     </div>
 
+    <div id="Won" hidden>
+        <div style="font-weight: bold; font-size: large; text-align: center;">You Win!</div>
+        <button type="button" onclick="resetGame()">Play Again?</button>
+    </div>
 
+    <div id="Lost" hidden>
+        <div style="font-weight: bold; font-size: large; text-align: center;">Unlucky. You lost</div>
+        <button type="button" onclick="resetGame()">Play Again?</button>
+    </div>
 
 <script src="hangman.js"></script>
 

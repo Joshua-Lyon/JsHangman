@@ -1,5 +1,11 @@
 body{
     display: grid;
     place-items: center;
-    height: 70%;
+    height: 80vh;
+    font-size: larger;
+    grid-template-rows: repeat(auto-fill, 10%);
+}
+
+[hidden] {
+    display: none !important;
 }

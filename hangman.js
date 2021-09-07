@@ -1,7 +1,10 @@
 var word = "";
 var hiddenWord = "";
 var hiddenChar = "_";
+var spaceChar = "/";
 var lives = 10;
+var guessed = "";
+const startLives = 10;
 var countries = [
 "Afghanistan",
 "Albania",
@@ -211,11 +214,12 @@ function setGameMode(choice){
 }
 
 function setOwnWord(){
-    word = id("setWord").value.toUpperCase();
+    word = id("setWord").value.replace(" ", "/").toUpperCase();
     setHiddenWord();
     showHiddenWord();
     id("setWordContainer").hidden = true;
     id("guessContainer").hidden = false;
+    updateLives();
 }
 
 function setCountryWord(){
@@ -225,7 +229,10 @@ function setCountryWord(){
 function setHiddenWord(){
     hiddenWord = ""
     for (var c of word){
-        hiddenWord += hiddenChar;
+        if (c.match('^[A-Z]$'))
+            hiddenWord += hiddenChar;
+        else
+            hiddenWord += c;
     }
 }
 
@@ -237,7 +244,7 @@ function showHiddenWord(){
         letter.style.margin = "0.5em"
         id("wordContainer").append(letter)
     }
-    
+    id('wordContainer').hidden = false;
 }
 
 id('guessInput').addEventListener('keydown', e => {guess(e.key.toUpperCase())})
@@ -245,28 +252,77 @@ id('guessInput').addEventListener('keydown', e => {guess(e.key.toUpperCase())})
 
 function guess(letter){
 
-    id('guessInput').value = "";
+    
     if (letter.length != 1)
         return hiddenWord;
     
     var newHiddenWord = "";
+    var found = false;
 
     for (var i = 0; i < word.length; i++){
-        if (word[i] == letter)
+        if (word[i] == letter){
             newHiddenWord += letter;
+            found = true;
+        }
         else
             newHiddenWord += hiddenWord[i];
 
     }
-    hiddenWord = newHiddenWord
+    if (!found){
+        lives--;
+        guessed += letter;
+        updateGuessedLetters()
+        updateLives();
+    }
+    
+    if (lives <= 0){
+        id('Lost').hidden = false;
+        id('guessContainer').hidden = true;
+    }
+        
 
+    hiddenWord = newHiddenWord
+    
     showHiddenWord();
+    
+    if (hiddenWord == word){
+        id('guessContainer').hidden = true;
+        id('Won').hidden = false;
+    }
+    id('guessInput').value = "";
 }
 
-function main(){
+function resetGame(){
+    word = "";
+    hiddenWord = "";
+    id('chooseGameModeContainer').hidden = false;
+    id('Won').hidden = true;
+    id('Lost').hidden = true;
+    id('wordContainer').hidden = true;
+    id('lives').hidden = true;
+    guessed = "";
+    updateGuessedLetters();
+    lives = startLives;
+}
 
+function updateLives(){
+    id('lives').hidden = false;
+    id('livesCount').innerText = lives;
+}
 
+function updateGuessedLetters(){
+    var guessedText = "";
 
+    for (var i = 0; i < guessed.length; i++){
+        if (i==0){
+            guessedText += guessed[i];
+        }
+        else{
+            guessedText += `, ${guessed[i]}`;
+        }
+    }
+
+    id('guessedLetters').innerText = guessedText;
 }
 
 function id(id){
