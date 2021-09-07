@@ -1,5 +1,6 @@
 var word = "";
 var hiddenWord = "";
+var hiddenChar = "_";
 var lives = 10;
 var countries = [
 "Afghanistan",
@@ -204,14 +205,14 @@ var gameMode = 0
 function setGameMode(choice){
     gameMode = choice;
     if (gameMode == 0)
-        id("setWordContainer").style.display = "block";
+        id("setWordContainer").hidden = false;
             
     id("chooseGameModeContainer").hidden = true;
 }
 
 function setOwnWord(){
-    word = id("setWord").value
-    hiddenWord = setHiddenWord();
+    word = id("setWord").value.toUpperCase();
+    setHiddenWord();
     showHiddenWord();
     id("setWordContainer").hidden = true;
     id("guessContainer").hidden = false;
@@ -223,14 +224,14 @@ function setCountryWord(){
 
 function setHiddenWord(){
     hiddenWord = ""
-    for (var c in word){
-        hiddenWord += "_"
+    for (var c of word){
+        hiddenWord += hiddenChar;
     }
 }
 
 function showHiddenWord(){
     id("wordContainer").innerText = "";
-    for (var c in hiddenWord){
+    for (var c of hiddenWord){
         var letter = document.createElement("span")
         letter.innerText = c
         letter.style.margin = "0.5em"
@@ -239,7 +240,12 @@ function showHiddenWord(){
     
 }
 
+id('guessInput').addEventListener('keydown', e => {guess(e.key.toUpperCase())})
+
+
 function guess(letter){
+
+    id('guessInput').value = "";
     if (letter.length != 1)
         return hiddenWord;
     
@@ -254,6 +260,7 @@ function guess(letter){
     }
     hiddenWord = newHiddenWord
 
+    showHiddenWord();
 }
 
 function main(){
