@@ -312,7 +312,7 @@ function guess(letter){
         id('Lost').hidden = false;
         id('guessContainer').hidden = true;
         listenForLetters = false;
-        $('lostWord').innerText = word.replace(/\\/g, " ");
+        $('#lostWord').innerText = word.replace(/\\/g, " ");
     }
         
 
