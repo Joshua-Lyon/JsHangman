@@ -5,6 +5,7 @@ var spaceChar = "/";
 var lives = 10;
 var guessed = "";
 const startLives = 10;
+var listenForLetters = false;
 var countries = [
 "Afghanistan",
 "Albania",
@@ -211,19 +212,39 @@ function setGameMode(choice){
         id("setWordContainer").hidden = false;
             
     id("chooseGameModeContainer").hidden = true;
+
+    if (gameMode == 1)
+        setCountryWord();
+
 }
 
 function setOwnWord(){
-    word = id("setWord").value.replace(" ", "/").toUpperCase();
+    word = id("setWord").value.replace(/ /g, "/").toUpperCase();
+    startGame();
+}
+
+function startGame(){
+
     setHiddenWord();
     showHiddenWord();
     id("setWordContainer").hidden = true;
     id("guessContainer").hidden = false;
     updateLives();
+    $('#guessedLettersContainer').hidden = false;
+    listenForLetters = true;
 }
 
 function setCountryWord(){
+    countryIndex = randomint(0, countries.length-1)
+    word = countries[countryIndex].toLocaleUpperCase().trim().replace(/ /g, "/");
+    countries.splice(countryIndex, 1);
 
+    startGame();
+}
+
+function randomint(min, max){
+    var diff = max - min;
+    return Math.floor(Math.random() * diff + min);
 }
 
 function setHiddenWord(){
@@ -247,14 +268,23 @@ function showHiddenWord(){
     id('wordContainer').hidden = false;
 }
 
-id('guessInput').addEventListener('keydown', e => {guess(e.key.toUpperCase())})
+document.addEventListener('keydown', e => {guess(e.key.toUpperCase())})
 
+
+function $ (query){
+    return document.querySelector(query);
+}
 
 function guess(letter){
 
-    
+    if (!listenForLetters)
+        return;
+
     if (letter.length != 1)
-        return hiddenWord;
+        return;
+
+    if (guessed.includes(letter))
+        return;
     
     var newHiddenWord = "";
     var found = false;
@@ -278,6 +308,8 @@ function guess(letter){
     if (lives <= 0){
         id('Lost').hidden = false;
         id('guessContainer').hidden = true;
+        listenForLetters = false;
+        $('lostWord').innerText = word.replace(/\\/g, " ");
     }
         
 
@@ -288,13 +320,16 @@ function guess(letter){
     if (hiddenWord == word){
         id('guessContainer').hidden = true;
         id('Won').hidden = false;
+        listenForLetters = false;
     }
-    id('guessInput').value = "";
+    //id('guessInput').value = "";
 }
 
 function resetGame(){
     word = "";
     hiddenWord = "";
+    $('#lostWord').innerText = "";
+    $('#guessedLettersContainer').hidden = true;
     id('chooseGameModeContainer').hidden = false;
     id('Won').hidden = true;
     id('Lost').hidden = true;

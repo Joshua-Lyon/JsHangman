@@ -25,15 +25,15 @@
         <button onclick="setOwnWord()">Set Word</button>
     </div>
 
-    <div id="guessedLettersContainer">
-        Incorrect Guesses: <div id="guessedLetters"></div>
+    <div id="guessedLettersContainer" hidden>
+        Incorrect Guesses: <span id="guessedLetters"></span>
     </div>
 
     <div id="wordContainer">
 
     </div>
     <div id="guessContainer" hidden>
-        <input style="margin-top: 0.5em;" id="guessInput" type=text value=""/>
+        <!-- <input style="margin-top: 0.5em;" id="guessInput" type=text value=""/> -->
     </div>
 
     <div id="Won" hidden>
@@ -42,7 +42,8 @@
     </div>
 
     <div id="Lost" hidden>
-        <div style="font-weight: bold; font-size: large; text-align: center;">Unlucky. You lost</div>
+        <div style="font-weight: bold; font-size: large; text-align: center;">Unlucky. You lost<br>
+        The word was <span id="lostWord"></span> </div>
         <button type="button" onclick="resetGame()">Play Again?</button>
     </div>
     
