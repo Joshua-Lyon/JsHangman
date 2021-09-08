@@ -4,6 +4,7 @@ body{
     height: 80vh;
     font-size: larger;
     text-align: center;
+    font-family: sans-serif;
 }
 
 [hidden] {
@@ -18,3 +19,17 @@ body > div:nth-child(1) {
     box-shadow: rgb(0,0,0,0.7) 2px 3px;
    }
    
+
+/* main.css | file:///C:/Users/josht/Documents/HangmanJS/JsHangman/main.css */
+
+button {
+    padding: 0.5em;
+    background: #f4c995;
+    border-radius: 0.5em;
+    border: solid black 0.2em;
+    cursor: pointer;
+  }
+  
+button:hover{
+    border-color: white;
+}
