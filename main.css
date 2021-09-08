@@ -9,3 +9,12 @@ body{
 [hidden] {
     display: none !important;
 }
+
+body > div:nth-child(1) {
+    background-color: blanchedalmond;
+    border: solid 2px black;
+    padding: 2em;
+    border-radius: 15px;
+    box-shadow: rgb(0,0,0,0.7) 2px 3px;
+   }
+   
