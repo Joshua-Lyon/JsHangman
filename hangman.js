@@ -286,6 +286,9 @@ function guess(letter){
     if (guessed.includes(letter))
         return;
     
+    if (!letter.match(/^[A-Z]$/))    
+        return;
+
     var newHiddenWord = "";
     var found = false;
 
