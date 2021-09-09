@@ -268,7 +268,7 @@ function showHiddenWord(){
     id('wordContainer').hidden = false;
 }
 
-$('#guessInput').addEventListener('input', e => {guess(e.target.value.toUpperCase())})
+$('#guessInput').addEventListener('keydown', e => { $('h1').innerText =e.key; guess(e.key.toUpperCase())})
 
 
 function $ (query){
