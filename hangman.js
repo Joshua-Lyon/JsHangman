@@ -291,7 +291,7 @@ function showHiddenWord(){
     id('wordContainer').hidden = false;
 }
 
-document.addEventListener('keydown', e => {guess(e.key.toUpperCase())})
+$('#guessInput').addEventListener('input', e => { $('h1').innerText =e.data; guess(e.data.toUpperCase())})
 
 
 function $ (query){
@@ -348,7 +348,7 @@ function guess(letter){
         id('Won').hidden = false;
         listenForLetters = false;
     }
-    //id('guessInput').value = "";
+    id('guessInput').value = "";
 }
 
 function resetGame(){
