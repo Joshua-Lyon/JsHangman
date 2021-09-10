@@ -204,6 +204,10 @@ var countries = [
 "Zambia",
 "Zimbabwe"
 ];
+
+var presidents = [];
+
+var presidents
 var gameMode = 0
 
 function setGameMode(choice){
@@ -213,8 +217,14 @@ function setGameMode(choice){
             
     id("chooseGameModeContainer").hidden = true;
 
-    if (gameMode == 1)
-        setCountryWord();
+    switch (gameMode){
+        case 1:    
+            setCountryWord();
+            break;
+        case 2:
+            setPresidentWord();
+    }
+ 
 
 }
 
@@ -238,6 +248,19 @@ function setCountryWord(){
     countryIndex = randomint(0, countries.length-1)
     word = countries[countryIndex].toLocaleUpperCase().trim().replace(/ /g, "/");
     countries.splice(countryIndex, 1);
+
+    startGame();
+}
+
+async function setPresidentWord(){
+
+    var data = await fetch('presidents.csv');
+
+    presidents = await (await data.text()).split('\n');
+
+    index = randomint(0, presidents.length-1)
+    word = presidents[index].toLocaleUpperCase().trim().replace(/ /g, "/");
+    presidents.splice(index, 1);
 
     startGame();
 }
