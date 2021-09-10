@@ -9,16 +9,22 @@
 </head>
 <body>
     <h1>Josh's Amazing Hangman Game!</h1>
-<div>
+    <h2 id="wordSet"></h2>
+<div id="gameContainer">
+    <div id="wordCount" style="text-align: right; margin-right: 2em;">
+
+    </div>
     <div id="lives" style="width: 100%; display: flex; justify-content: end; margin-right: 5em;" hidden="true">
         Lives: <span id="livesCount"></span>
     </div>
 
     <div id=chooseGameModeContainer>
-        <span>How would you like to play</span><br>
-        <button onclick="setGameMode(0)" style="margin-bottom: 0.3em;">Choose a word for a friend</button><br>
-        <button onclick="setGameMode(1)" style="margin-bottom: 0.3em;">Guess a random country</button><br>
-        <button onclick="setGameMode(2)" style="margin-bottom: 0.3em;">Presidents</button>
+        <h2>How Would you like to play?</h2>
+        <button onclick="setGameMode(0)" class="gamemode" style="margin-bottom: 0.3em;">Choose a word for a friend</button><br>
+        <span>Or play from a list of words</span><br>
+        <button onclick="setGameMode(1)" class="gamemode" style="margin-bottom: 0.3em;">Countries</button><br>
+        <button onclick="setGameMode(2)" class="gamemode" style="margin-bottom: 0.3em;">US Presidents</button><br>
+        <button onclick="setGameMode(3)" class="gamemode" style="margin-bottom: 0.3em;">UK Prime Ministers</button>
     </div>
 
     <div id="setWordContainer" hidden>

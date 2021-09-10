@@ -6,225 +6,42 @@ var lives = 10;
 var guessed = "";
 const startLives = 10;
 var listenForLetters = false;
-var countries = [
-"Afghanistan",
-"Albania",
-"Algeria",
-"Andorra",
-"Angola",
-"Antigua and Barbuda",
-"Argentina",
-"Armenia",
-"Australia",
-"Austria",
-"Austrian Empire",
-"Azerbaijan",
-"The Bahamas",
-"Bahrain",
-"Bangladesh",
-"Barbados",
-"Belarus",
-"Belgium",
-"Belize",
-"Benin (Dahomey)",
-"Bolivia",
-"Bosnia and Herzegovina",
-"Botswana",
-"Brazil",
-"Brunei",
-"Bulgaria",
-"Burkina Faso (Upper Volta)",
-"Burma",
-"Burundi",
-"Cabo Verde",
-"Cambodia",
-"Cameroon",
-"Canada",
-"The Cayman Islands",
-"Central African Republic",
-"Chad",
-"Chile",
-"China",
-"Colombia",
-"Comoros",
-"Costa Rica",
-"Croatia",
-"Cuba",
-"Cyprus",
-"Czechia",
-"Czechoslovakia",
-"Democratic Republic of the Congo",
-"Denmark",
-"Djibouti",
-"Dominica",
-"Dominican Republic",
-"Ecuador",
-"Egypt",
-"El Salvador",
-"Equatorial Guinea",
-"Eritrea",
-"Estonia",
-"Eswatini",
-"Ethiopia",
-"Fiji",
-"Finland",
-"France",
-"Gabon",
-"Georgia",
-"Germany",
-"Ghana",
-"Greece",
-"Grenada",
-"Guatemala",
-"Guinea",
-"Guinea-Bissau",
-"Guyana",
-"Haiti",
-"Holy See",
-"Honduras",
-"Hungary",
-"Iceland",
-"India",
-"Indonesia",
-"Iran",
-"Iraq",
-"Ireland",
-"Israel",
-"Italy",
-"Jamaica",
-"Japan",
-"Jordan",
-"Kazakhstan",
-"Kenya",
-"Kiribati",
-"Korea",
-"Kosovo",
-"Kuwait",
-"Kyrgyzstan",
-"Laos",
-"Latvia",
-"Lebanon",
-"Lesotho",
-"Liberia",
-"Libya",
-"Liechtenstein",
-"Lithuania",
-"Luxembourg",
-"Madagascar",
-"Malawi",
-"Malaysia",
-"Maldives",
-"Mali",
-"Malta",
-"Marshall Islands",
-"Mauritania",
-"Mauritius",
-"Mexico",
-"Micronesia",
-"Moldova",
-"Monaco",
-"Mongolia",
-"Montenegro",
-"Morocco",
-"Mozambique",
-"Namibia",
-"Nauru",
-"Nepal",
-"The Netherlands",
-"New Zealand",
-"Nicaragua",
-"Niger",
-"Nigeria",
-"North Macedonia",
-"Norway",
-"Oman",
-"Pakistan",
-"Palau",
-"Panama",
-"Papua New Guinea",
-"Paraguay",
-"Peru",
-"Philippines",
-"Poland",
-"Portugal",
-"Qatar",
-"South Korea",
-"Republic of the Congo",
-"Romania",
-"Russia",
-"Rwanda",
-"Saint Kitts and Nevis",
-"Saint Lucia",
-"Saint Vincent and the Grenadines",
-"Samoa",
-"San Marino",
-"Sao Tome and Principe",
-"Saudi Arabia",
-"Schaumburg-Lippe",
-"Senegal",
-"Serbia",
-"Seychelles",
-"Sierra Leone",
-"Singapore",
-"Slovakia",
-"Slovenia",
-"The Solomon Islands",
-"Somalia",
-"South Africa",
-"South Sudan",
-"Spain",
-"Sri Lanka",
-"Sudan",
-"Suriname",
-"Sweden",
-"Switzerland",
-"Syria",
-"Tajikistan",
-"Tanzania",
-"Thailand",
-"Timor-Leste",
-"Togo",
-"Tonga",
-"Trinidad and Tobago",
-"Tunisia",
-"Turkey",
-"Turkmenistan",
-"Tuvalu",
-"Uganda",
-"Ukraine",
-"Union of Soviet Socialist Republics",
-"The United Arab Emirates",
-"The United Kingdom",
-"Uruguay",
-"Uzbekistan",
-"Vanuatu",
-"Venezuela",
-"Vietnam",
-"Yemen",
-"Zambia",
-"Zimbabwe"
-];
+var words = [];
+var wordNum = 0;
+var wordsTotal = 0;
 
-var presidents = [];
 
-var presidents
-var gameMode = 0
+var gameMode = 0;
 
-function setGameMode(choice){
+async function setGameMode(choice){
     gameMode = choice;
-    if (gameMode == 0)
-        id("setWordContainer").hidden = false;
-            
     id("chooseGameModeContainer").hidden = true;
 
+    if (gameMode == 0){
+        id("setWordContainer").hidden = false;
+        return;
+    }
+            
+    var path = "";
+    var wordSet = "";
     switch (gameMode){
         case 1:    
-            setCountryWord();
+            path = "countries.csv";
+            wordSet = "Countries";
             break;
         case 2:
-            setPresidentWord();
+            path = "presidents.csv";
+            wordSet = "US Presidents";
+            break;
+        case 3:
+            path = "primeministers.csv";
+            wordSet = "UK Prime Ministers";
     }
- 
+
+    $('#wordSet').innerText = wordSet;   
+    words = (await (await fetch(path)).text()).split('\n');
+    wordsTotal = words.length;
+    setRandomWord();
 
 }
 
@@ -245,23 +62,19 @@ function startGame(){
 }
 
 function setCountryWord(){
-    countryIndex = randomint(0, countries.length-1)
-    word = countries[countryIndex].toLocaleUpperCase().trim().replace(/ /g, "/");
-    countries.splice(countryIndex, 1);
+    var countryIndex = randomint(0, words.length-1)
+    word = words[countryIndex].toLocaleUpperCase().trim().replace(/ /g, "/");
+    words.splice(countryIndex, 1);
 
     startGame();
 }
 
-async function setPresidentWord(){
-
-    var data = await fetch('presidents.csv');
-
-    presidents = await (await data.text()).split('\n');
-
-    index = randomint(0, presidents.length-1)
-    word = presidents[index].toLocaleUpperCase().trim().replace(/ /g, "/");
-    presidents.splice(index, 1);
-
+function setRandomWord(){
+    wordNum++;
+    index = randomint(0, words.length-1)
+    word = words[index].toLocaleUpperCase().trim().replace(/ /g, "/");
+    words.splice(index, 1);
+    updateWordCount();
     startGame();
 }
 
@@ -300,6 +113,8 @@ function $ (query){
 
 
 function guess(letter){
+
+    id('guessInput').value = "";
 
     if (!listenForLetters)
         return;
@@ -349,7 +164,6 @@ function guess(letter){
         id('Won').hidden = false;
         listenForLetters = false;
     }
-    id('guessInput').value = "";
 }
 
 function resetGame(){
@@ -357,14 +171,22 @@ function resetGame(){
     hiddenWord = "";
     $('#lostWord').innerText = "";
     $('#guessedLettersContainer').hidden = true;
-    id('chooseGameModeContainer').hidden = false;
     id('Won').hidden = true;
     id('Lost').hidden = true;
     id('wordContainer').hidden = true;
     id('lives').hidden = true;
+    $('#wordCount').innerText = "";
     guessed = "";
     updateGuessedLetters();
     lives = startLives;
+    switch (gameMode){
+        case 0:
+            $('#setWordContainer').hidden = false;
+            break;
+        default:
+            setRandomWord();
+            startGame();
+    }
 }
 
 function updateLives(){
@@ -385,6 +207,10 @@ function updateGuessedLetters(){
     }
 
     id('guessedLetters').innerText = guessedText;
+}
+
+function updateWordCount(){
+    $('#wordCount').innerText = `Word ${wordNum} of ${wordsTotal}`;
 }
 
 function id(id){

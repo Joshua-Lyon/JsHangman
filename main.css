@@ -5,13 +5,14 @@ body{
     font-size: larger;
     text-align: center;
     font-family: sans-serif;
+    background-color: #bfbfbf;
 }
 
 [hidden] {
     display: none !important;
 }
 
-body > div:nth-child(2) {
+#gameContainer {
     background-color: blanchedalmond;
     border: solid 2px black;
     padding: 2em;
@@ -32,4 +33,12 @@ button {
   
 button:hover{
     border-color: white;
+}
+
+div{
+    margin-bottom: 1em;
+}
+
+.gamemode{
+    width: 80%;
 }
