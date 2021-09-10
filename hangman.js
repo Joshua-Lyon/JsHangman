@@ -291,12 +291,13 @@ function showHiddenWord(){
     id('wordContainer').hidden = false;
 }
 
-$('#guessInput').addEventListener('input', e => { $('h1').innerText =e.data; guess(e.data.toUpperCase())})
+$('#guessInput').addEventListener('input', e => {guess(e.data.toUpperCase())})
 
 
 function $ (query){
     return document.querySelector(query);
 }
+
 
 function guess(letter){
 
