@@ -62,6 +62,7 @@ function startGame(){
     updateLives();
     $('#guessedLettersContainer').hidden = false;
     listenForLetters = true;
+    createLetters();
 }
 
 function setCountryWord(){
@@ -114,9 +115,21 @@ function $ (query){
     return document.querySelector(query);
 }
 
+function createLetters(){
+    var guessContainer = id('guessContainer');
+    for (var i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i ++){
+        var a = String.fromCharCode(i);
+        var letter = document.createElement("button");
+        letter.innerText = a;
+        letter.classList.add("guess-letter");
+        letter.onclick = function(a) {return function(){
+            guess(a);
+        }}(a);
+        guessContainer.append(letter);
+    }
+}
 
 function guess(letter){
-
     id('guessInput').value = "";
 
     if (!listenForLetters)
