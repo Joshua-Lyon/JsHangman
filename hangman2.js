@@ -39,10 +39,13 @@ async function setGameMode(choice){
         case 4:
             path = "monarchs.csv";
             wordSet = "British Monarchs";
+        case 5:
+            path = "animals.csv";
+            wordSet = "Animals";
     }
 
     $('#wordSet').innerText = wordSet;   
-    words = (await (await fetch(path)).text()).split('\n');
+    words = (await (await fetch(`dataSets/${path}`)).text()).split('\n');
     wordsTotal = words.length;
     setRandomWord();
 
@@ -108,8 +111,18 @@ function showHiddenWord(){
     id('wordContainer').hidden = false;
 }
 
-$('#guessInput').addEventListener('input', e => {guess(e.data.toUpperCase())})
+document.addEventListener('keydown', e => {
+    disableButton(e.key.toUpperCase());
+    guess(e.key.toUpperCase());
+});
 
+function disableButton(letter){
+    var guessLetter = $(`#guess-letter-${letter}`);
+    if (guessLetter == null)
+        return;
+    
+    guessLetter.disabled = true;
+}
 
 function $ (query){
     return document.querySelector(query);
@@ -117,12 +130,17 @@ function $ (query){
 
 function createLetters(){
     var guessContainer = id('guessContainer');
+
+    guessContainer.innerHTML = "";
+
     for (var i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i ++){
         var a = String.fromCharCode(i);
         var letter = document.createElement("button");
         letter.innerText = a;
+        letter.id = `guess-letter-${a}`;
         letter.classList.add("guess-letter");
-        letter.onclick = function(a) {return function(){
+        letter.onclick = function(a) {return function(e){
+            e.target.disabled = true;
             guess(a);
         }}(a);
         guessContainer.append(letter);
@@ -130,7 +148,7 @@ function createLetters(){
 }
 
 function guess(letter){
-    id('guessInput').value = "";
+    //id('guessInput').value = "";
 
     if (!listenForLetters)
         return;

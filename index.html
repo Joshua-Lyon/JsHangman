@@ -8,8 +8,11 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-    <h1>Josh's Amazing Hangman Game!</h1>
-    <h2 id="wordSet"></h2>
+    <div>
+        <h1>Josh's Amazing Hangman Game!</h1>
+        <h2 id="wordSet"></h2>
+    </div>
+
 <div id="gameContainer">
     <div id="wordCount" style="text-align: right; margin-right: 2em;">
 
@@ -22,6 +25,7 @@
         <h2>How Would you like to play?</h2>
         <button onclick="setGameMode(0)" class="gamemode" style="margin-bottom: 0.3em;">Choose a word for a friend</button><br>
         <span>Or play from a list of words</span><br>
+        <button onclick="setGameMode(5)" class="gamemode" style="margin-bottom: 0.3em;">Animals</button>
         <button onclick="setGameMode(1)" class="gamemode" style="margin-bottom: 0.3em;">Countries</button><br>
         <button onclick="setGameMode(2)" class="gamemode" style="margin-bottom: 0.3em;">US Presidents</button><br>
         <button onclick="setGameMode(3)" class="gamemode" style="margin-bottom: 0.3em;">UK Prime Ministers</button>
@@ -42,7 +46,6 @@
 
     </div>
     <div id="guessContainer" hidden>
-        <input style="margin-top: 0.5em;" id="guessInput" type=text value=""/>
     </div>
 
     <div id="Won" hidden>
@@ -58,7 +61,7 @@
     
 </div>
 
-<script src="hangman.js"></script>
+<script src="hangman2.js"></script>
 
 
 
