@@ -36,6 +36,9 @@ async function setGameMode(choice){
         case 3:
             path = "primeministers.csv";
             wordSet = "UK Prime Ministers";
+        case 4:
+            path = "monarchs.csv";
+            wordSet = "British Monarchs";
     }
 
     $('#wordSet').innerText = wordSet;   
