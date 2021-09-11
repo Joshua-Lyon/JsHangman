@@ -60,3 +60,7 @@ button.guess-letter{
     height: 3em;
     margin: 0.1em;
 }
+
+button:focus{
+    outline:0.3em solid #c286ff;
+}
