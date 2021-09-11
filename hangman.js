@@ -101,7 +101,7 @@ function showHiddenWord(){
     for (var c of hiddenWord){
         var letter = document.createElement("span")
         letter.innerText = c
-        letter.style.margin = "0.5em"
+        letter.style.margin = "0.15em"
         id("wordContainer").append(letter)
     }
     id('wordContainer').hidden = false;
