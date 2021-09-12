@@ -62,5 +62,10 @@ button.guess-letter{
 }
 
 button:focus{
-    outline:0.3em solid #c286ff;
+    outline: none;
+    box-shadow: 0 0 0 0.3em #c286ff;
+}
+
+.last-letter{
+    box-shadow: 0 0 0 0.3em #c286ff;
 }

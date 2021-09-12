@@ -68,14 +68,6 @@ function startGame(){
     createLetters();
 }
 
-function setCountryWord(){
-    var countryIndex = randomint(0, words.length-1)
-    word = words[countryIndex].toLocaleUpperCase().trim().replace(/ /g, "/");
-    words.splice(countryIndex, 1);
-
-    startGame();
-}
-
 function setRandomWord(){
     wordNum++;
     index = randomint(0, words.length-1)
@@ -120,8 +112,12 @@ function disableButton(letter){
     var guessLetter = $(`#guess-letter-${letter}`);
     if (guessLetter == null)
         return;
-    
+
+    $('.last-letter')?.classList.remove("last-letter");
+    guessLetter.classList.add("last-letter");
     guessLetter.disabled = true;
+    guessLetter.blur();
+    
 }
 
 function $ (query){
@@ -140,7 +136,7 @@ function createLetters(){
         letter.id = `guess-letter-${a}`;
         letter.classList.add("guess-letter");
         letter.onclick = function(a) {return function(e){
-            e.target.disabled = true;
+            disableButton(a);
             guess(a);
         }}(a);
         guessContainer.append(letter);
