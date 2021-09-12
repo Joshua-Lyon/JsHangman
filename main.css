@@ -63,7 +63,7 @@ button.guess-letter{
 
 button:focus{
     outline: none;
-    box-shadow: 0 0 0 0.3em #c286ff;
+    box-shadow: 0 0 0 0.3em #00e7ff;
 }
 
 .last-letter{

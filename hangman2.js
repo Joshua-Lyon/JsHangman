@@ -182,6 +182,7 @@ function guess(letter){
         id('guessContainer').hidden = true;
         listenForLetters = false;
         $('#lostWord').innerText = word.replace(/\\/g, " ");
+        $('#play-again-lost')?.focus();
     }
         
 
@@ -193,6 +194,7 @@ function guess(letter){
         id('guessContainer').hidden = true;
         id('Won').hidden = false;
         listenForLetters = false;
+        $('#play-again-won')?.focus();
     }
 }
 
