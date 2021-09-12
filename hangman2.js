@@ -36,9 +36,11 @@ async function setGameMode(choice){
         case 3:
             path = "primeministers.csv";
             wordSet = "UK Prime Ministers";
+            break;
         case 4:
             path = "monarchs.csv";
-            wordSet = "British Monarchs";
+            wordSet = "English Monarchs";
+            break;
         case 5:
             path = "animals.csv";
             wordSet = "Animals";
