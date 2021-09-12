@@ -44,6 +44,10 @@ async function setGameMode(choice){
         case 5:
             path = "animals.csv";
             wordSet = "Animals";
+            break;
+        case 6:
+            path = "simpsons.csv";
+            wordSet = "Simpsons Characters";
     }
 
     $('#wordSet').innerText = wordSet;   
