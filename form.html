@@ -1,34 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div>
-        <form id="proactive-autoresponder-form">
-            <label for="Name">Name</label>
-            <input required name="Name"/>
-            <label for="Email">Email Address</label>
-            <input required name="Email"/>
-            <button type="submit" id="proactive-submit">Submit</button>
-        </form>
+        <form id="proactive-autoresponder-form"> <label for="Name">Name</label> <input required name="Name" /> <label
+                for="Email">Email Address</label> <input required name="Email" /> <button type="submit"
+                id="proactive-submit">Submit</button> </form>
         <div id="proactive-autoresponder-response"></div>
     </div>
-    <script> 
-        document.getElementById('proactive-autoresponder-form').onsubmit = ev => {
-            ev.preventDefault();
-            fetch('https://test.myproactivecrm.com/api/Autoresponders/SignUp',{
-                method: 'Post',
-                headers:{
-                'Content-Type':'application/json',
-                },
-                body: JSON.stringify({'name': ev.target.elements.Name.value,'email': ev.target.elements.Email.value,'autoresponderId':'22'})
-            });
-            
-        };
-    </script>
+    <script> document.getElementById('proactive-autoresponder-form').onsubmit = ev => { ev.preventDefault(); fetch('https://test.myproactivecrm.com/api/Autoresponders/SignUp', { method: 'Post', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({ 'name': ev.target.elements.Name.value, 'email': ev.target.elements.Email.value, 'autoresponderId': 22 }) }); }; </script>
 </body>
+
 </html>
