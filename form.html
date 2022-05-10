@@ -15,7 +15,30 @@
                 id="proactive-submit">Submit</button> </form>
         <div id="proactive-autoresponder-response"></div>
     </div>
-    <script> document.getElementById('proactive-autoresponder-form').onsubmit = ev => { ev.preventDefault(); fetch('https://test.myproactivecrm.com/api/Autoresponders/SignUp', { method: 'Post', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({ 'name': ev.target.elements.Name.value, 'email': ev.target.elements.Email.value, 'autoresponderId': 22 }) }); }; </script>
+    <script> document.getElementById('proactive-autoresponder-form').onsubmit = ev => 
+    { ev.preventDefault(); 
+    fetch('https://test.myproactivecrm.com/api/Autoresponders/SignUp', { 
+        method: 'Post', 
+        headers: { 'Content-Type': 'application/json', }, 
+        body: JSON.stringify({ 
+            'name': ev.target.elements.Name.value, 
+            'email': ev.target.elements.Email.value, 
+            'autoresponderId': 22 
+        }) 
+    }).then(response => {
+        let resMessage = document.getElementById('proactive-autoresponder-response');
+        if (response.status == 200){
+             resMessage.innerText = "Thank you for signing up.";
+            ev.target.elements.Name.value = "";
+            ev.target.elements.Email.value = "";
+        }
+        else{
+            resMessage.innerHTML = "An Error occurred. This email may already be signed up.";
+        }
+
+    }); 
+}; 
+</script>
 </body>
 
 </html>
