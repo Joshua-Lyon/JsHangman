@@ -9,7 +9,7 @@ var listenForLetters = false;
 var words = [];
 var wordNum = 0;
 var wordsTotal = 0;
-
+var score = 0;
 
 var gameMode = 0;
 
@@ -48,6 +48,10 @@ async function setGameMode(choice){
         case 6:
             path = "simpsons.csv";
             wordSet = "Simpsons Characters";
+            break;
+        case 7:
+            path = "southpark.csv";
+            wordSet = "South Park Characters";
     }
 
     $('#wordSet').innerText = wordSet;   
@@ -197,11 +201,25 @@ function guess(letter){
     showHiddenWord();
     
     if (hiddenWord == word){
+        score += lives;
+        updateScore();
         id('guessContainer').hidden = true;
-        id('Won').hidden = false;
-        listenForLetters = false;
-        $('#play-again-won')?.focus();
+        if (words.length == 0){
+            id("FinishedWords").hidden = false;
+        }
+        else{
+            id('Won').hidden = false;
+            listenForLetters = false;
+            $('#play-again-won')?.focus();
+        }
     }
+}
+
+function updateScore(){
+    if (score == 0)
+        id("score").innerText = "";
+    else
+        id("score").innerText = `Score: ${score}`;
 }
 
 function resetGame(){

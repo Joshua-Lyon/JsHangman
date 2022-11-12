@@ -8,9 +8,11 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
+    <button type="button" style="position: absolute; top:0; left:0; padding: 1rem; font-size: 1.2rem;" onclick="location.reload()">Main Menu</button>
     <div>
         <h1>Josh's Amazing Hangman Game!</h1>
         <h2 id="wordSet"></h2>
+        <div id="score"></div>
     </div>
 
 <div id="gameContainer">
@@ -31,6 +33,7 @@
         <button onclick="setGameMode(3)" class="gamemode" style="margin-bottom: 0.3em;">UK Prime Ministers</button>
         <button onclick="setGameMode(4)" class="gamemode" style="margin-bottom: 0.3em;">English Monarchs</button>
         <button onclick="setGameMode(6)" class="gamemode" style="margin-bottom: 0.3em;">Simpsons Characters</button>
+        <button onclick="setGameMode(7)" class="gamemode" style="margin-bottom: 0.3em;">South Park Characters</button>
     </div>
 
     <div id="setWordContainer" hidden>
@@ -53,6 +56,11 @@
         <div style="font-weight: bold; font-size: large; text-align: center;">You Win!</div>
         <button id="play-again-won" type="button" onclick="resetGame()">Play Again?</button>
     </div>
+    
+    <div id="FinishedWords" hidden>
+        <div style="font-weight: bold; font-size: large; text-align: center;">You Completed All Words in this set!</div>
+        <div>Share your score with your friends</div>
+    </div>
 
     <div id="Lost" hidden>
         <div style="font-weight: bold; font-size: large; text-align: center;">Unlucky. You lost<br>
@@ -62,7 +70,7 @@
     
 </div>
 
-<script src="hangman2.js"></script>
+<script src="hangman3.js"></script>
 
 
 
